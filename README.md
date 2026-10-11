@@ -1,6 +1,6 @@
 # Zildo Tornearia — site institucional
 
-Site de uma página para a Zildo Tornearia: serviços, materiais, como funciona e pedido de orçamento direto no WhatsApp.
+Site de uma página da Zildo Tornearia, oficina de família em Alvorada/RS desde 1994: serviços, trabalhos, história, dúvidas e pedido de orçamento direto no WhatsApp.
 
 É um site **estático**: só HTML, CSS e JavaScript, sem framework, sem banco de dados e sem etapa de build. Pode ser hospedado em qualquer lugar e não precisa de manutenção técnica.
 
@@ -19,34 +19,32 @@ Site de uma página para a Zildo Tornearia: serviços, materiais, como funciona 
 └── .github/workflows/    # verificação automática do HTML a cada push
 ```
 
-## Como editar os dados da empresa
-
-Tudo está no `index.html`. Use "Localizar e substituir" no editor:
+## Como editar
 
 | O que mudar | Onde |
 |---|---|
+| Textos, serviços, dúvidas, endereço, telefones | `index.html` |
 | Número do WhatsApp | atributo `data-whatsapp` na tag `<body>` (só números: 55 + DDD + número) |
-| Telefone exibido | seção `#orcamento`, item "WhatsApp" |
-| Endereço e horário | seção `#orcamento` |
-| E-mail | seção `#orcamento` |
-| CNPJ | rodapé |
-| Dados para o Google | bloco `application/ld+json` no `<head>` |
+| Horário de funcionamento (aviso "Aberto agora") | objeto `HORARIO` no topo de `assets/js/main.js` |
+| Horário exibido na seção de contato | `index.html`, seção `#contato` |
+| Dados para o Google | blocos `application/ld+json` no `<head>` |
+| Cores | variáveis no topo de `assets/css/styles.css` |
 
-O link "Abrir no mapa" é gerado automaticamente a partir do endereço exibido.
+### Fotos dos trabalhos
+
+Coloque as fotos em `assets/img/trabalhos/` com estes nomes (JPG, de preferência 1200px no lado maior):
+
+`engrenagem.jpg`, `pino-de-porta.jpg`, `embuchamento.jpg`, `rebobinagem.jpg`, `retifica-freio.jpg`, `desengrossadeira.jpg`
+
+Enquanto a foto não existir, o site mostra um painel verde com o nome do serviço.
 
 ## Checklist antes de publicar
 
-Os campos abaixo estão com **dados de exemplo** e precisam ser confirmados com a cliente:
-
-- [ ] Número do WhatsApp e telefone
-- [ ] Endereço completo e cidade (também no JSON-LD)
-- [ ] Horário de atendimento
-- [ ] CNPJ
-- [ ] Ano de fundação ("Na estrada desde")
-- [ ] Capacidades técnicas: tolerância e diâmetro máximo
-- [ ] Lista de serviços e materiais
-- [ ] Fotos reais da oficina e de peças (opcional, mas aumenta a confiança)
-- [ ] Imagem de compartilhamento (`og:image`, 1200×630) para quando o link for enviado no WhatsApp
+- [ ] Fotos reais dos trabalhos (as do site antigo estão no backup da Umbler)
+- [ ] Logo oficial, se existir
+- [ ] Horário de funcionamento real (hoje: seg a sex, 8h às 18h)
+- [ ] CEP correto (o site antigo mostrava "94820-4902", com um dígito a mais)
+- [ ] Imagem de compartilhamento (`og:image`, 1200×630)
 
 ## Rodar localmente
 
