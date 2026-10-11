@@ -1,100 +1,125 @@
 /**
  * Zildo Tornearia — comportamento do site.
  *
- * O conteúdo (textos, telefone, endereço) fica no index.html.
- * Este arquivo só monta os links do WhatsApp e do mapa e cuida do formulário de orçamento.
- * O número do WhatsApp vem do atributo data-whatsapp do <body>.
+ * Os textos ficam no index.html. Aqui ficam só:
+ *  - o horário de funcionamento (usado no aviso "Aberto agora");
+ *  - os links do WhatsApp e o formulário de orçamento;
+ *  - o painel das fotos que ainda não foram enviadas.
  */
 (function () {
   "use strict";
 
-  var body = document.body;
-  var phone = (body.getAttribute("data-whatsapp") || "").replace(/\D/g, "");
-  var business = body.getAttribute("data-business") || "";
+  // Horário de funcionamento. 0 = domingo ... 6 = sábado. Horas em formato 24h.
+  // Para fechar um dia, deixe a lista vazia. Para intervalo de almoço, use dois períodos.
+  var HORARIO = {
+    0: [],
+    1: [["08:00", "18:00"]],
+    2: [["08:00", "18:00"]],
+    3: [["08:00", "18:00"]],
+    4: [["08:00", "18:00"]],
+    5: [["08:00", "18:00"]],
+    6: []
+  };
+  var FUSO = "America/Sao_Paulo";
+  var FUNDACAO = 1994;
+
+  var phone = (document.body.getAttribute("data-whatsapp") || "").replace(/\D/g, "");
   var waBase = "https://wa.me/" + phone;
+  function waLink(text) { return waBase + "?text=" + encodeURIComponent(text); }
 
-  function waLink(text) {
-    return waBase + "?text=" + encodeURIComponent(text);
-  }
-
-  // Botões genéricos de WhatsApp
-  var greeting = "Olá, vim pelo site da " + business + " e gostaria de um orçamento.";
+  // Links genéricos de WhatsApp
   document.querySelectorAll(".js-wa").forEach(function (a) {
-    a.href = waLink(greeting);
-  });
-
-  // Link do mapa a partir do endereço exibido na página
-  document.querySelectorAll(".js-map").forEach(function (a) {
-    var addrEl = a.parentElement && a.parentElement.querySelector("span");
-    if (!addrEl) return;
-    var address = addrEl.textContent.replace(/·/g, ",").trim();
-    a.href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(address);
+    a.href = waLink("Olá! Vim pelo site da Zildo Tornearia e gostaria de um orçamento.");
   });
 
   // Ano no rodapé
-  var year = document.getElementById("year");
-  if (year) year.textContent = String(new Date().getFullYear());
+  var yearEl = document.getElementById("year");
+  if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
-  // Formulário de orçamento → mensagem pronta para o WhatsApp
+  // Fotos que ainda não existem viram painel com legenda
+  document.querySelectorAll(".shot img").forEach(function (img) {
+    var mark = function () { img.closest(".shot").classList.add("is-empty"); };
+    if (img.complete && img.naturalWidth === 0) mark();
+    img.addEventListener("error", mark);
+  });
+
+  // "Aberto agora" / "Fechado agora"
+  function nowInTZ() {
+    try {
+      var parts = new Intl.DateTimeFormat("en-US", {
+        timeZone: FUSO, weekday: "short", hour: "2-digit", minute: "2-digit", hour12: false
+      }).formatToParts(new Date());
+      var map = {};
+      parts.forEach(function (p) { map[p.type] = p.value; });
+      var days = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+      return { day: days[map.weekday], minutes: (parseInt(map.hour, 10) % 24) * 60 + parseInt(map.minute, 10) };
+    } catch (e) {
+      var d = new Date();
+      return { day: d.getDay(), minutes: d.getHours() * 60 + d.getMinutes() };
+    }
+  }
+  function toMin(hhmm) { var p = hhmm.split(":"); return +p[0] * 60 + +p[1]; }
+  function fmt(hhmm) { var p = hhmm.split(":"); return +p[0] + "h" + (p[1] !== "00" ? p[1] : ""); }
+  var NOMES = ["domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sábado"];
+
+  function nextOpening(now) {
+    for (var i = 0; i < 8; i++) {
+      var day = (now.day + i) % 7;
+      var slots = HORARIO[day] || [];
+      for (var j = 0; j < slots.length; j++) {
+        if (i > 0 || toMin(slots[j][0]) > now.minutes) {
+          var when = i === 0 ? "hoje" : i === 1 ? "amanhã" : NOMES[day];
+          return "Abre " + when + " às " + fmt(slots[j][0]);
+        }
+      }
+    }
+    return "";
+  }
+
+  function updateStatus() {
+    var el = document.getElementById("status");
+    if (!el) return;
+    var text = el.querySelector(".status-text");
+    var now = nowInTZ();
+    var slots = HORARIO[now.day] || [];
+    var open = null;
+    slots.forEach(function (s) {
+      if (now.minutes >= toMin(s[0]) && now.minutes < toMin(s[1])) open = s;
+    });
+    el.classList.toggle("is-open", !!open);
+    el.classList.toggle("is-closed", !open);
+    text.textContent = open
+      ? "Aberto agora · fecha às " + fmt(open[1])
+      : "Fechado agora · " + nextOpening(now);
+  }
+  updateStatus();
+  setInterval(updateStatus, 60000);
+
+  // Formulário de orçamento → mensagem pronta no WhatsApp
   var form = document.getElementById("quote-form");
   if (!form) return;
+  var fallbackLink = form.querySelector(".js-wa-form");
 
-  var preview = document.getElementById("f-preview");
-  var send = form.querySelector(".js-wa-form");
-  var copyBtn = document.getElementById("copy-btn");
-  var status = document.getElementById("copy-status");
-
-  function val(id) {
-    var el = document.getElementById(id);
-    return el ? el.value.trim() : "";
-  }
-
+  function val(id) { var el = document.getElementById(id); return el ? el.value.trim() : ""; }
   function buildMessage() {
-    var lines = ["Olá! Gostaria de um orçamento."];
+    var lines = ["Olá! Vim pelo site e gostaria de um orçamento."];
     var nome = val("f-nome");
-    var empresa = val("f-empresa");
-    var qtd = val("f-qtd");
-    var msg = val("f-msg");
-    if (nome) lines.push("Nome: " + nome + (empresa ? " (" + empresa + ")" : ""));
+    if (nome) lines.push("Nome: " + nome + " (" + val("f-tipo").toLowerCase() + ")");
+    else lines.push("Sou: " + val("f-tipo").toLowerCase());
     lines.push("Serviço: " + val("f-servico"));
-    if (qtd) lines.push("Quantidade: " + qtd);
-    if (msg) lines.push("Peça: " + msg);
+    var msg = val("f-msg");
+    if (msg) lines.push("Problema: " + msg);
+    lines.push("Vou mandar a foto da peça em seguida.");
     return lines.join("\n");
   }
+  function sync() { if (fallbackLink) fallbackLink.href = waLink(buildMessage()); }
 
-  function update() {
-    var message = buildMessage();
-    if (preview) preview.textContent = message;
-    if (send) send.href = waLink(message);
-  }
-
-  form.addEventListener("input", update);
-  form.addEventListener("change", update);
+  form.addEventListener("input", sync);
+  form.addEventListener("change", sync);
   form.addEventListener("submit", function (e) {
     e.preventDefault();
-    if (send) send.click();
+    sync();
+    if (fallbackLink) fallbackLink.click();
   });
-  update();
-
-  if (copyBtn) {
-    copyBtn.addEventListener("click", function () {
-      var text = buildMessage();
-      function fallback() {
-        if (!preview) return;
-        var range = document.createRange();
-        range.selectNodeContents(preview);
-        var sel = window.getSelection();
-        sel.removeAllRanges();
-        sel.addRange(range);
-        status.textContent = "Texto selecionado. Use Ctrl+C para copiar.";
-      }
-      try {
-        navigator.clipboard.writeText(text).then(function () {
-          status.textContent = "Mensagem copiada.";
-        }, fallback);
-      } catch (err) {
-        fallback();
-      }
-    });
-  }
+  sync();
 })();
