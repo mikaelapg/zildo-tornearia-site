@@ -18,7 +18,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;700&family=Public+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
   <link rel="stylesheet" href="assets/css/styles.css">
 
   <script type="application/ld+json">
@@ -32,6 +32,7 @@
     "telephone": ["+55-51-99313-5373", "+55-51-3507-0709"],
     "foundingDate": "1994",
     "areaServed": "Grande Porto Alegre",
+    "sameAs": ["https://www.instagram.com/zildotornearia/"],
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "R. Vasco da Gama, 40 - Sumaré",
@@ -53,16 +54,18 @@
     ]
   }
   </script>
+  <script>document.documentElement.classList.add("js");</script>
+  <script src="assets/js/lathe.js" defer></script>
   <script src="assets/js/main.js" defer></script>
 </head>
-<body data-whatsapp="5551993135373">
+<body data-whatsapp="5551993135373" data-email="zildotornearia@gmail.com">
 <a class="skip" href="#conteudo">Pular para o conteúdo</a>
 
-<header class="top">
+<header class="top" id="topo">
   <div class="wrap top-row">
     <a class="logo" href="#inicio" aria-label="Zildo Tornearia, voltar ao início">
-      <span class="logo-name">Zildo</span>
-      <span class="logo-sub">tornearia</span>
+      <svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true"><g class="gear-spin"><path d="M20 4l2.6 3.6 4.3-1 1 4.3 4.3 1-1 4.3L34.8 20l-3.6 2.6 1 4.3-4.3 1-1 4.3-4.3-1L20 34.8l-2.6-3.6-4.3 1-1-4.3-4.3-1 1-4.3L5.2 20l3.6-2.6-1-4.3 4.3-1 1-4.3 4.3 1z"/><circle cx="20" cy="20" r="5.5"/></g></svg>
+      <span class="logo-text"><span class="logo-name">Zildo</span><span class="logo-sub">tornearia</span></span>
     </a>
     <nav class="nav" aria-label="Principal">
       <a href="#servicos">Serviços</a>
@@ -71,7 +74,7 @@
       <a href="#duvidas">Dúvidas</a>
       <a href="#contato">Contato</a>
     </nav>
-    <a class="top-phone" href="tel:+555135070709">(51) 3507-0709</a>
+    <a class="top-cta" href="#contato">Orçamento grátis</a>
   </div>
 </header>
 
@@ -81,56 +84,76 @@
   <section class="hero" id="inicio">
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <p class="kicker">Tornearia em Alvorada · desde 1994</p>
-        <h1>Se quebrou, a gente conserta. Se não existe, <span class="mark">a gente faz.</span></h1>
-        <p class="hero-lede">Fabricação de peças, consertos e manutenção para empresas e para o seu dia a dia. Uma oficina de família, hoje na segunda geração.</p>
+        <p class="status-chip" id="status" aria-live="polite"><span class="dot" aria-hidden="true"></span><span class="status-text">Seg a sex, 8h às 18h</span></p>
+        <h1 class="hero-title">
+          <span class="line"><span>Se quebrou,</span></span>
+          <span class="line"><span>a gente conserta.</span></span>
+          <span class="line"><span>Se não existe,</span></span>
+          <span class="line"><span class="mark">a gente faz.</span></span>
+        </h1>
+        <p class="hero-lede">Tornearia de família em Alvorada desde 1994. Fabricação de peças, consertos e manutenção para empresas e para o seu dia a dia.</p>
         <div class="hero-actions">
-          <a class="btn btn-signal js-wa" href="https://wa.me/5551993135373" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>
-            Pedir orçamento no WhatsApp
+          <a class="btn btn-signal js-wa" data-msg="Olá! Vim pelo site e gostaria de um orçamento." href="https://wa.me/5551993135373" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>
+            Orçamento no WhatsApp
           </a>
-          <a class="btn btn-line" href="tel:+555135070709">Ligar para a oficina</a>
+          <a class="btn btn-line" href="tel:+555135070709">Ligar (51) 3507-0709</a>
         </div>
       </div>
 
-      <aside class="plate" aria-label="Placa da oficina">
-        <span class="screw s1" aria-hidden="true"></span><span class="screw s2" aria-hidden="true"></span>
-        <span class="screw s3" aria-hidden="true"></span><span class="screw s4" aria-hidden="true"></span>
-        <p class="plate-name">Zildo</p>
-        <p class="plate-sub">Tornearia · Consertos em geral</p>
-        <hr>
-        <p class="plate-line">R. Vasco da Gama, 40 · Sumaré<br>Alvorada · RS</p>
-        <p class="status" id="status" aria-live="polite"><span class="dot" aria-hidden="true"></span><span class="status-text">Seg a sex, 8h às 18h</span></p>
-      </aside>
+      <figure class="machine">
+        <div class="machine-screen">
+          <canvas id="lathe" aria-label="Animação de um torno usinando uma peça de aço" role="img"></canvas>
+          <div class="readout" aria-hidden="true">
+            <span id="rpm-out">900 rpm</span>
+            <span id="dia-out">Ø 54 → 40 mm</span>
+            <span id="pos-out">Z −0,0</span>
+          </div>
+        </div>
+        <figcaption class="machine-panel">
+          <label for="rpm">Rotação</label>
+          <input type="range" id="rpm" min="200" max="2000" step="50" value="900">
+          <button type="button" class="panel-btn" id="lathe-pause" aria-pressed="false">Desligar</button>
+        </figcaption>
+      </figure>
     </div>
 
     <div class="wrap">
       <ul class="facts">
-        <li><strong id="anos">Desde 1994</strong><span>na mesma família</span></li>
-        <li><strong>Orçamento grátis</strong><span>por foto, no WhatsApp</span></li>
-        <li><strong>Empresa e particular</strong><span>da indústria ao seu carro</span></li>
-        <li><strong>Grande Porto Alegre</strong><span>Alvorada e região</span></li>
+        <li class="reveal"><strong><span class="count" data-from="1" data-to="32" id="anos">32</span> anos</strong><span>de oficina, desde 1994</span></li>
+        <li class="reveal"><strong>2ª geração</strong><span>da mesma família</span></li>
+        <li class="reveal"><strong><span class="count" data-from="0" data-to="11">11</span> serviços</strong><span>da indústria ao seu carro</span></li>
+        <li class="reveal"><strong>R$ 0</strong><span>pelo orçamento</span></li>
       </ul>
     </div>
   </section>
+
+  <!-- FAIXA -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>Fabricação de peças</span><span>Solda</span><span>Embuchamento</span><span>Roscas</span><span>Retífica de freio</span><span>Pino de porta</span><span>Engrenagens</span><span>Rebobinagem de motor</span><span>Carburador e TBI</span><span>Máquinas industriais</span>
+      <span>Fabricação de peças</span><span>Solda</span><span>Embuchamento</span><span>Roscas</span><span>Retífica de freio</span><span>Pino de porta</span><span>Engrenagens</span><span>Rebobinagem de motor</span><span>Carburador e TBI</span><span>Máquinas industriais</span>
+    </div>
+  </div>
 
   <!-- PARA QUEM -->
   <section class="section audiences" aria-labelledby="para-quem">
     <div class="wrap">
       <h2 id="para-quem" class="visually-hidden">Para quem trabalhamos</h2>
       <div class="split">
-        <article class="aud">
+        <article class="aud reveal">
           <p class="aud-tag">Para sua empresa</p>
-          <h3>Uma oficina de confiança para a manutenção da sua produção.</h3>
-          <p>Máquina parada é prejuízo. Assumimos a manutenção e os consertos que a sua empresa precisa, com peça feita sob medida quando não existe para comprar.</p>
+          <h3>Máquina parada é prejuízo. A gente resolve rápido.</h3>
+          <p>Assumimos a manutenção e os consertos que a sua produção precisa, com peça feita sob medida quando ela não existe para comprar.</p>
           <ul class="ticks">
             <li>Conserto de máquinas industriais</li>
             <li>Fabricação de peças e engrenagens</li>
             <li>Rebobinagem de motores elétricos</li>
-            <li>Atendimento recorrente para manutenção</li>
+            <li>Atendimento recorrente de manutenção</li>
           </ul>
+          <a class="text-link js-wa" data-msg="Olá! Sou de uma empresa e preciso de manutenção/conserto." href="https://wa.me/5551993135373" target="_blank" rel="noopener">Falar sobre a minha empresa <span aria-hidden="true">→</span></a>
         </article>
-        <article class="aud">
+        <article class="aud reveal">
           <p class="aud-tag">Para você</p>
           <h3>Aquele conserto que ninguém mais quis fazer.</h3>
           <p>Porta do carro que não fecha, freio trepidando, ferramenta quebrada, peça que saiu de linha. Traga aqui que a gente olha e diz o que dá para fazer.</p>
@@ -140,6 +163,7 @@
             <li>Embuchamento de carburador e TBI</li>
             <li>Solda e recuperação de peças</li>
           </ul>
+          <a class="text-link js-wa" data-msg="Olá! Preciso de um conserto, posso mandar uma foto?" href="https://wa.me/5551993135373" target="_blank" rel="noopener">Mandar foto do meu problema <span aria-hidden="true">→</span></a>
         </article>
       </div>
     </div>
@@ -148,55 +172,46 @@
   <!-- SERVIÇOS -->
   <section class="section" id="servicos" aria-labelledby="servicos-t">
     <div class="wrap">
-      <div class="sec-head">
+      <div class="sec-head reveal">
         <h2 id="servicos-t">Serviços</h2>
-        <p>Se o seu caso não está na lista, pergunte. Boa parte do que fazemos é peça única, resolvida na bancada.</p>
+        <p>Toque em um serviço para pedir orçamento direto no WhatsApp. Não achou o seu caso? Pergunte, boa parte do que fazemos é peça única.</p>
       </div>
-      <div class="svc-groups">
-        <div class="svc-group">
-          <h3>Fabricação e consertos</h3>
-          <dl>
-            <dt>Fabricação de peças</dt><dd>A partir da peça antiga, de um desenho ou de medidas.</dd>
-            <dt>Fabricação de engrenagens</dt><dd>Para máquinas que não têm mais peça de reposição.</dd>
-            <dt>Conserto de máquinas industriais</dt><dd>Desengrossadeiras, prensas, tornos e equipamentos de produção.</dd>
-            <dt>Recuperação de peças</dt><dd>Eixos gastos, encaixes folgados, peças quebradas.</dd>
-          </dl>
-        </div>
-        <div class="svc-group">
-          <h3>Embuchamento, roscas e solda</h3>
-          <dl>
-            <dt>Embuchamento</dt><dd>Buchas novas para eliminar folgas e desgaste.</dd>
-            <dt>Roscas</dt><dd>Abertura e recuperação de roscas espanadas.</dd>
-            <dt>Solda</dt><dd>Solda em peças e estruturas metálicas.</dd>
-          </dl>
-        </div>
-        <div class="svc-group">
-          <h3>Automotivo e motores</h3>
-          <dl>
-            <dt>Portas automotivas</dt><dd>Pinos de porta, regulagem e lubrificação.</dd>
-            <dt>Retífica de freio</dt><dd>Discos e cubos de roda retificados.</dd>
-            <dt>Carburador e TBI</dt><dd>Embuchamento e conserto.</dd>
-            <dt>Rebobinagem de motores</dt><dd>Motores elétricos de máquinas e equipamentos.</dd>
-          </dl>
-        </div>
+      <div class="filters" role="group" aria-label="Filtrar serviços">
+        <button type="button" class="chip is-active" data-filter="todos" aria-pressed="true">Todos</button>
+        <button type="button" class="chip" data-filter="fabricacao" aria-pressed="false">Fabricação e consertos</button>
+        <button type="button" class="chip" data-filter="embuchamento" aria-pressed="false">Embuchamento, roscas e solda</button>
+        <button type="button" class="chip" data-filter="auto" aria-pressed="false">Automotivo e motores</button>
       </div>
+      <ul class="svc-list" id="svc-list">
+        <li data-cat="fabricacao"><a class="svc js-wa" data-msg="Olá! Gostaria de orçamento para fabricação de peça." href="https://wa.me/5551993135373" target="_blank" rel="noopener"><span class="svc-name">Fabricação de peças</span><span class="svc-desc">A partir da peça antiga, de um desenho ou de medidas.</span><span class="svc-go" aria-hidden="true">Orçar →</span></a></li>
+        <li data-cat="fabricacao"><a class="svc js-wa" data-msg="Olá! Gostaria de orçamento para fabricação de engrenagem." href="https://wa.me/5551993135373" target="_blank" rel="noopener"><span class="svc-name">Fabricação de engrenagens</span><span class="svc-desc">Para máquinas que não têm mais peça de reposição.</span><span class="svc-go" aria-hidden="true">Orçar →</span></a></li>
+        <li data-cat="fabricacao"><a class="svc js-wa" data-msg="Olá! Preciso de conserto em máquina industrial." href="https://wa.me/5551993135373" target="_blank" rel="noopener"><span class="svc-name">Conserto de máquinas industriais</span><span class="svc-desc">Desengrossadeiras, prensas e equipamentos de produção.</span><span class="svc-go" aria-hidden="true">Orçar →</span></a></li>
+        <li data-cat="fabricacao"><a class="svc js-wa" data-msg="Olá! Gostaria de recuperar uma peça." href="https://wa.me/5551993135373" target="_blank" rel="noopener"><span class="svc-name">Recuperação de peças</span><span class="svc-desc">Eixos gastos, encaixes folgados, peças quebradas.</span><span class="svc-go" aria-hidden="true">Orçar →</span></a></li>
+        <li data-cat="embuchamento"><a class="svc js-wa" data-msg="Olá! Gostaria de orçamento de embuchamento." href="https://wa.me/5551993135373" target="_blank" rel="noopener"><span class="svc-name">Embuchamento</span><span class="svc-desc">Buchas novas para eliminar folga e desgaste.</span><span class="svc-go" aria-hidden="true">Orçar →</span></a></li>
+        <li data-cat="embuchamento"><a class="svc js-wa" data-msg="Olá! Preciso fazer/recuperar uma rosca." href="https://wa.me/5551993135373" target="_blank" rel="noopener"><span class="svc-name">Roscas</span><span class="svc-desc">Abertura e recuperação de roscas espanadas.</span><span class="svc-go" aria-hidden="true">Orçar →</span></a></li>
+        <li data-cat="embuchamento"><a class="svc js-wa" data-msg="Olá! Preciso de um serviço de solda." href="https://wa.me/5551993135373" target="_blank" rel="noopener"><span class="svc-name">Solda</span><span class="svc-desc">Solda em peças e estruturas metálicas.</span><span class="svc-go" aria-hidden="true">Orçar →</span></a></li>
+        <li data-cat="auto"><a class="svc js-wa" data-msg="Olá! A porta do meu carro está com problema (barulho/não fecha)." href="https://wa.me/5551993135373" target="_blank" rel="noopener"><span class="svc-name">Portas automotivas</span><span class="svc-desc">Pinos de porta, regulagem e lubrificação.</span><span class="svc-go" aria-hidden="true">Orçar →</span></a></li>
+        <li data-cat="auto"><a class="svc js-wa" data-msg="Olá! Gostaria de orçamento de retífica de freio." href="https://wa.me/5551993135373" target="_blank" rel="noopener"><span class="svc-name">Retífica de freio</span><span class="svc-desc">Discos e cubos de roda retificados.</span><span class="svc-go" aria-hidden="true">Orçar →</span></a></li>
+        <li data-cat="auto"><a class="svc js-wa" data-msg="Olá! Preciso de conserto/embuchamento de carburador ou TBI." href="https://wa.me/5551993135373" target="_blank" rel="noopener"><span class="svc-name">Carburador e TBI</span><span class="svc-desc">Embuchamento e conserto.</span><span class="svc-go" aria-hidden="true">Orçar →</span></a></li>
+        <li data-cat="auto"><a class="svc js-wa" data-msg="Olá! Preciso rebobinar um motor elétrico." href="https://wa.me/5551993135373" target="_blank" rel="noopener"><span class="svc-name">Rebobinagem de motores</span><span class="svc-desc">Motores elétricos de máquinas e equipamentos.</span><span class="svc-go" aria-hidden="true">Orçar →</span></a></li>
+      </ul>
     </div>
   </section>
 
   <!-- TRABALHOS -->
   <section class="section works" id="trabalhos" aria-labelledby="trabalhos-t">
     <div class="wrap">
-      <div class="sec-head">
+      <div class="sec-head reveal">
         <h2 id="trabalhos-t">Trabalhos da oficina</h2>
-        <p>Alguns serviços feitos aqui. Mande uma foto do seu caso e a gente responde se dá para fazer.</p>
+        <p>Alguns serviços feitos aqui. Veja mais no nosso <a href="https://www.instagram.com/zildotornearia/" target="_blank" rel="noopener">Instagram @zildotornearia</a>.</p>
       </div>
       <div class="gallery">
-        <figure class="shot shot--wide"><img src="assets/img/trabalhos/engrenagem.jpg" alt="Engrenagem fabricada na oficina" loading="lazy" width="1200" height="800"><figcaption>Fabricação de engrenagem</figcaption></figure>
-        <figure class="shot"><img src="assets/img/trabalhos/pino-de-porta.jpg" alt="Pinos de porta automotiva" loading="lazy" width="800" height="800"><figcaption>Pino de porta</figcaption></figure>
-        <figure class="shot"><img src="assets/img/trabalhos/embuchamento.jpg" alt="Peça com bucha nova" loading="lazy" width="800" height="800"><figcaption>Embuchamento</figcaption></figure>
-        <figure class="shot"><img src="assets/img/trabalhos/rebobinagem.jpg" alt="Motor elétrico rebobinado" loading="lazy" width="800" height="800"><figcaption>Rebobinagem de motor</figcaption></figure>
-        <figure class="shot"><img src="assets/img/trabalhos/retifica-freio.jpg" alt="Disco de freio retificado" loading="lazy" width="800" height="800"><figcaption>Retífica de freio</figcaption></figure>
-        <figure class="shot shot--wide"><img src="assets/img/trabalhos/desengrossadeira.jpg" alt="Desengrossadeira consertada" loading="lazy" width="1200" height="800"><figcaption>Conserto de desengrossadeira</figcaption></figure>
+        <figure class="shot shot--wide reveal" data-art="gear"><button type="button" class="shot-btn" aria-label="Ampliar: Fabricação de engrenagem"><img src="assets/img/trabalhos/engrenagem.jpg" alt="Engrenagem fabricada na oficina" loading="lazy" width="1200" height="800"></button><figcaption>Fabricação de engrenagem</figcaption></figure>
+        <figure class="shot reveal" data-art="pin"><button type="button" class="shot-btn" aria-label="Ampliar: Pino de porta"><img src="assets/img/trabalhos/pino-de-porta.jpg" alt="Pinos de porta automotiva" loading="lazy" width="800" height="800"></button><figcaption>Pino de porta</figcaption></figure>
+        <figure class="shot reveal" data-art="bushing"><button type="button" class="shot-btn" aria-label="Ampliar: Embuchamento"><img src="assets/img/trabalhos/embuchamento.jpg" alt="Peça com bucha nova" loading="lazy" width="800" height="800"></button><figcaption>Embuchamento</figcaption></figure>
+        <figure class="shot reveal" data-art="motor"><button type="button" class="shot-btn" aria-label="Ampliar: Rebobinagem de motor"><img src="assets/img/trabalhos/rebobinagem.jpg" alt="Motor elétrico rebobinado" loading="lazy" width="800" height="800"></button><figcaption>Rebobinagem de motor</figcaption></figure>
+        <figure class="shot reveal" data-art="disc"><button type="button" class="shot-btn" aria-label="Ampliar: Retífica de freio"><img src="assets/img/trabalhos/retifica-freio.jpg" alt="Disco de freio retificado" loading="lazy" width="800" height="800"></button><figcaption>Retífica de freio</figcaption></figure>
+        <figure class="shot shot--wide reveal" data-art="planer"><button type="button" class="shot-btn" aria-label="Ampliar: Conserto de desengrossadeira"><img src="assets/img/trabalhos/desengrossadeira.jpg" alt="Desengrossadeira consertada" loading="lazy" width="1200" height="800"></button><figcaption>Conserto de desengrossadeira</figcaption></figure>
       </div>
     </div>
   </section>
@@ -204,16 +219,22 @@
   <!-- HISTÓRIA -->
   <section class="section story" id="historia" aria-labelledby="historia-t">
     <div class="wrap story-grid">
-      <div class="since" aria-hidden="true">
-        <span class="since-year">1994</span>
-        <span class="since-label">ano em que a oficina abriu</span>
-      </div>
+      <aside class="plate reveal" aria-label="Placa da oficina">
+        <span class="screw s1" aria-hidden="true"></span><span class="screw s2" aria-hidden="true"></span>
+        <span class="screw s3" aria-hidden="true"></span><span class="screw s4" aria-hidden="true"></span>
+        <p class="plate-name">Zildo</p>
+        <p class="plate-sub">Tornearia · Consertos em geral</p>
+        <hr>
+        <p class="plate-line">Desde 1994<br>R. Vasco da Gama, 40 · Alvorada/RS</p>
+      </aside>
       <div class="story-copy">
-        <h2 id="historia-t">Uma oficina de família</h2>
-        <p>A Zildo Tornearia abriu em 1994 e hoje está na segunda geração da família. Nesse tempo, passaram pela bancada peças de indústria, de carro, de máquina de marcenaria e muita coisa que outros diziam não ter conserto.</p>
-        <p>Temos área de produção própria, maquinário e uma equipe que aprendeu o ofício aqui dentro. Cada serviço é tratado do jeito que o cliente precisa, sem pacote pronto.</p>
-        <p>O objetivo é ser referência em manutenção e fabricação de peças na Grande Porto Alegre, sem abrir mão do jeito de trabalhar que trouxe a oficina até aqui.</p>
-        <ul class="values" aria-label="Nossos valores">
+        <h2 id="historia-t" class="reveal">Uma oficina de família</h2>
+        <ol class="timeline">
+          <li class="reveal"><span class="tl-year">1994</span><p>A oficina abre as portas em Alvorada, com torno, bancada e muita disposição para resolver o que aparecesse.</p></li>
+          <li class="reveal"><span class="tl-year">Os anos seguintes</span><p>Passam pela bancada peças de indústria, de carro, de máquina de marcenaria e muita coisa que outros diziam não ter conserto. A oficina ganha área de produção própria e mais maquinário.</p></li>
+          <li class="reveal"><span class="tl-year">Hoje</span><p>A segunda geração da família toca o negócio, com uma equipe que aprendeu o ofício aqui dentro e o mesmo jeito de trabalhar: atender cada cliente do jeito que ele precisa.</p></li>
+        </ol>
+        <ul class="values reveal" aria-label="Nossos valores">
           <li>Agilidade</li><li>Qualidade</li><li>Respeito</li><li>Trabalho em equipe</li>
         </ul>
       </div>
@@ -223,30 +244,30 @@
   <!-- DÚVIDAS -->
   <section class="section" id="duvidas" aria-labelledby="duvidas-t">
     <div class="wrap faq-grid">
-      <div class="sec-head">
+      <div class="sec-head reveal">
         <h2 id="duvidas-t">Dúvidas comuns</h2>
         <p>Não achou a sua? Chama no WhatsApp.</p>
       </div>
       <div class="faq">
-        <details open>
+        <details class="reveal" open>
           <summary>O que uma tornearia faz?</summary>
-          <p>Fabrica, recupera e conserta peças de metal. Atendemos máquinas industriais, carros e equipamentos em geral. Quando a peça não existe mais para comprar, a gente faz uma nova.</p>
+          <div class="faq-body"><p>Fabrica, recupera e conserta peças de metal. Atendemos máquinas industriais, carros e equipamentos em geral. Quando a peça não existe mais para comprar, a gente faz uma nova.</p></div>
         </details>
-        <details>
+        <details class="reveal">
           <summary>Minha porta do carro faz barulho e não fecha direito. Vocês resolvem?</summary>
-          <p>Sim. Na maioria das vezes é desgaste nos pinos da porta. Fazemos pinos novos, regulagem e lubrificação.</p>
+          <div class="faq-body"><p>Sim. Na maioria das vezes é desgaste nos pinos da porta. Fazemos pinos novos, regulagem e lubrificação.</p></div>
         </details>
-        <details>
+        <details class="reveal">
           <summary>Vocês consertam o motor da minha máquina?</summary>
-          <p>Sim. Temos profissional especializado em rebobinagem de motores elétricos.</p>
+          <div class="faq-body"><p>Sim. Temos profissional especializado em rebobinagem de motores elétricos.</p></div>
         </details>
-        <details>
+        <details class="reveal">
           <summary>A peça da minha máquina saiu de linha. Tem jeito?</summary>
-          <p>Quase sempre. Com a peça antiga, mesmo quebrada, ou com as medidas, fabricamos uma nova.</p>
+          <div class="faq-body"><p>Quase sempre. Com a peça antiga, mesmo quebrada, ou com as medidas, fabricamos uma nova.</p></div>
         </details>
-        <details>
+        <details class="reveal">
           <summary>O orçamento é cobrado?</summary>
-          <p>Não. Mande uma foto pelo WhatsApp ou traga a peça na oficina e passamos o orçamento sem custo.</p>
+          <div class="faq-body"><p>Não. Mande uma foto pelo WhatsApp ou traga a peça na oficina e passamos o orçamento sem custo.</p></div>
         </details>
       </div>
     </div>
@@ -256,27 +277,39 @@
   <section class="section contact" id="contato" aria-labelledby="contato-t">
     <div class="wrap contact-grid">
       <div class="contact-info">
-        <h2 id="contato-t">Fale com a oficina</h2>
-        <dl class="info">
-          <div><dt>WhatsApp</dt><dd><a class="js-wa" href="https://wa.me/5551993135373" target="_blank" rel="noopener">(51) 99313-5373</a></dd></div>
+        <h2 id="contato-t" class="reveal">Fale com a oficina</h2>
+        <dl class="info reveal">
+          <div><dt>WhatsApp</dt><dd><a class="js-wa" data-msg="Olá! Vim pelo site da Zildo Tornearia." href="https://wa.me/5551993135373" target="_blank" rel="noopener">(51) 99313-5373</a></dd></div>
           <div><dt>Telefone</dt><dd><a href="tel:+555135070709">(51) 3507-0709</a></dd></div>
           <div><dt>E-mail</dt><dd><a href="mailto:zildotornearia@gmail.com">zildotornearia@gmail.com</a></dd></div>
-          <div><dt>Endereço</dt><dd><span id="endereco">R. Vasco da Gama, 40 · Sumaré · Alvorada/RS</span><br><a class="small-link" href="https://www.google.com/maps/search/?api=1&amp;query=R.%20Vasco%20da%20Gama%2C%2040%2C%20Sumar%C3%A9%2C%20Alvorada%20RS" target="_blank" rel="noopener">Ver no mapa</a></dd></div>
+          <div><dt>Instagram</dt><dd><a href="https://www.instagram.com/zildotornearia/" target="_blank" rel="noopener">@zildotornearia</a></dd></div>
+          <div><dt>Endereço</dt><dd>R. Vasco da Gama, 40 · Sumaré · Alvorada/RS</dd></div>
           <div><dt>Horário</dt><dd>Segunda a sexta, 8h às 18h</dd></div>
         </dl>
-        <p class="jobs"><strong>Trabalhe conosco.</strong> Mande seu currículo para zildotornearia@gmail.com com o assunto "Currículo".</p>
+        <div class="map reveal" id="map">
+          <svg class="map-art" viewBox="0 0 400 180" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+            <path class="m-road m-main" d="M-10 120 C 80 110, 140 60, 230 70 S 360 40, 420 30"/>
+            <path class="m-road" d="M60 -10 L 110 200"/><path class="m-road" d="M250 -10 L 220 200"/><path class="m-road" d="M-10 40 L 420 150"/>
+            <g class="m-pin"><path d="M200 46c-12 0-21 9-21 21 0 16 21 37 21 37s21-21 21-37c0-12-9-21-21-21z"/><circle cx="200" cy="67" r="7"/></g>
+          </svg>
+          <div class="map-actions">
+            <button type="button" class="panel-btn" id="map-load">Mostrar mapa aqui</button>
+            <a class="panel-btn" href="https://www.google.com/maps/search/?api=1&amp;query=R.%20Vasco%20da%20Gama%2C%2040%2C%20Sumar%C3%A9%2C%20Alvorada%20RS" target="_blank" rel="noopener">Abrir no Google Maps</a>
+          </div>
+        </div>
       </div>
 
-      <form class="quote" id="quote-form" novalidate>
-        <h3>Pedir orçamento</h3>
-        <p class="quote-hint">Preencha e a mensagem abre pronta no WhatsApp. Depois é só anexar a foto da peça.</p>
+      <form class="quote reveal" id="quote-form" novalidate>
+        <div class="quote-head">
+          <h3>Pedir orçamento</h3>
+          <p class="quote-hint">Chega direto no e-mail da oficina. Respondemos no horário comercial.</p>
+        </div>
         <div class="fields">
-          <div class="field"><label for="f-nome">Seu nome</label><input id="f-nome" name="nome" autocomplete="name"></div>
+          <div class="field"><label for="f-nome">Seu nome</label><input id="f-nome" name="nome" autocomplete="name" required></div>
+          <div class="field"><label for="f-fone">WhatsApp ou telefone</label><input id="f-fone" name="telefone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(51) 9xxxx-xxxx" required></div>
+          <div class="field"><label for="f-email">E-mail <span class="opt">(opcional)</span></label><input id="f-email" name="email" type="email" autocomplete="email"></div>
           <div class="field"><label for="f-tipo">Você é</label>
-            <select id="f-tipo" name="tipo">
-              <option>Particular</option>
-              <option>Empresa</option>
-            </select>
+            <select id="f-tipo" name="tipo"><option>Particular</option><option>Empresa</option></select>
           </div>
           <div class="field field--full"><label for="f-servico">Serviço</label>
             <select id="f-servico" name="servico">
@@ -293,13 +326,26 @@
               <option>Rebobinagem de motor</option>
             </select>
           </div>
-          <div class="field field--full"><label for="f-msg">Conte o problema</label><textarea id="f-msg" name="msg" rows="4" placeholder="Ex.: engrenagem da desengrossadeira quebrou dois dentes."></textarea></div>
+          <div class="field field--full"><label for="f-msg">Conte o problema</label><textarea id="f-msg" name="mensagem" rows="4" placeholder="Ex.: engrenagem da desengrossadeira quebrou dois dentes." required></textarea></div>
+          <input type="text" name="_honey" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
         </div>
-        <button class="btn btn-wa" type="submit">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg>
-          Abrir no WhatsApp
-        </button>
-        <a class="wa-fallback js-wa-form" href="https://wa.me/5551993135373" target="_blank" rel="noopener">Se não abrir, toque aqui</a>
+        <p class="form-error" id="form-error" role="alert" hidden></p>
+        <div class="form-actions">
+          <button class="btn btn-signal" type="submit" id="send-email">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mail"/></svg>
+            <span class="send-label">Enviar pedido</span>
+          </button>
+          <a class="btn btn-wa-outline js-wa-form" href="https://wa.me/5551993135373" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>
+            Mandar pelo WhatsApp
+          </a>
+        </div>
+        <div class="sent" id="form-sent" hidden>
+          <svg viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24"/><path d="M15 27l7 7 15-16"/></svg>
+          <h3>Pedido enviado</h3>
+          <p>Recebemos sua mensagem e retornamos no horário comercial. Se for urgente, chame no WhatsApp e mande a foto da peça.</p>
+          <button type="button" class="panel-btn panel-btn--dark" id="form-again">Enviar outro pedido</button>
+        </div>
       </form>
     </div>
   </section>
@@ -312,12 +358,52 @@
       <p>Tornearia e consertos em geral desde 1994.</p>
     </div>
     <p>R. Vasco da Gama, 40 · Sumaré · Alvorada/RS<br>(51) 99313-5373 · (51) 3507-0709</p>
-    <p>© <span id="year">2026</span> Zildo Tornearia</p>
+    <p><a href="https://www.instagram.com/zildotornearia/" target="_blank" rel="noopener">Instagram</a> · © <span id="year">2026</span> Zildo Tornearia</p>
   </div>
 </footer>
 
-<a class="float-wa js-wa" href="https://wa.me/5551993135373" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
-  <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>
-</a>
+<!-- WhatsApp: atendimento rápido -->
+<div class="chat" id="chat">
+  <div class="chat-panel" id="chat-panel" role="dialog" aria-modal="false" aria-labelledby="chat-title" hidden>
+    <div class="chat-head">
+      <span class="chat-avatar" aria-hidden="true">Z</span>
+      <div>
+        <p class="chat-title" id="chat-title">Zildo Tornearia</p>
+        <p class="chat-sub" id="chat-sub">Responde no horário comercial</p>
+      </div>
+      <button type="button" class="chat-close" id="chat-close" aria-label="Fechar">×</button>
+    </div>
+    <div class="chat-body" id="chat-body">
+      <div class="bubble typing" id="chat-typing"><span></span><span></span><span></span></div>
+      <div class="bubble" id="chat-hello" hidden>Olá! 👋 Como podemos ajudar? Escolha uma opção ou escreva sua mensagem.</div>
+      <div class="quick" id="chat-quick" hidden>
+        <a class="js-wa" data-msg="Olá! Quero orçamento para fabricar uma peça." href="https://wa.me/5551993135373" target="_blank" rel="noopener">Fabricar uma peça</a>
+        <a class="js-wa" data-msg="Olá! Preciso consertar uma máquina." href="https://wa.me/5551993135373" target="_blank" rel="noopener">Consertar máquina</a>
+        <a class="js-wa" data-msg="Olá! A porta do meu carro está com problema." href="https://wa.me/5551993135373" target="_blank" rel="noopener">Porta do carro</a>
+        <a class="js-wa" data-msg="Olá! Preciso rebobinar um motor." href="https://wa.me/5551993135373" target="_blank" rel="noopener">Motor elétrico</a>
+      </div>
+    </div>
+    <form class="chat-input" id="chat-form">
+      <label for="chat-text" class="visually-hidden">Sua mensagem</label>
+      <input id="chat-text" type="text" placeholder="Escreva sua mensagem" autocomplete="off">
+      <button type="submit" aria-label="Enviar no WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20l18-8L3 4v6l12 2-12 2z" fill="currentColor"/></svg></button>
+    </form>
+  </div>
+  <button type="button" class="chat-btn" id="chat-btn" aria-expanded="false" aria-controls="chat-panel" aria-label="Abrir atendimento pelo WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>
+    <span class="chat-badge" aria-hidden="true">1</span>
+  </button>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" hidden>
+  <button type="button" class="lb-close" id="lb-close" aria-label="Fechar">×</button>
+  <figure><img id="lb-img" alt=""><figcaption id="lb-cap"></figcaption></figure>
+</div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M3 6h18v12H3zM3 7l9 6 9-6"/></symbol>
+</svg>
 </body>
 </html>
