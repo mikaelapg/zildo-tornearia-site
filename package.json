@@ -1,0 +1,11 @@
+{
+  "name": "zildo-tornearia-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Site institucional da Zildo Tornearia. Estático, sem build.",
+  "scripts": {
+    "dev": "npx --yes serve@14.2.4 .",
+    "lint:html": "npx --yes html-validate@9.4.1 index.html 404.html",
+    "check": "npm run lint:html"
+  }
+}
