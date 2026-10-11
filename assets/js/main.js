@@ -42,8 +42,8 @@
   var now = new Date();
   var yearEl = $("#year");
   if (yearEl) yearEl.textContent = String(now.getFullYear());
-  var anos = $("#anos");
-  if (anos) { var n = now.getFullYear() - FUNDACAO; anos.textContent = n; anos.setAttribute("data-to", n); }
+  var anos = $("#anos-texto");
+  if (anos) anos.textContent = String(Math.floor((now.getFullYear() - FUNDACAO) / 10) * 10);
 
   // ---------- Aberto / fechado ----------
   function nowInTZ() {
@@ -79,32 +79,17 @@
       el.classList.toggle("is-closed", !st.open);
       $(".status-text", el).textContent = st.text;
     }
-    var sub = $("#chat-sub");
-    if (sub) sub.textContent = st.open ? "Online agora · responde em minutos" : "Responde no próximo horário comercial";
   }
   updateStatus();
   setInterval(updateStatus, 60000);
 
-  // ---------- Revelar ao rolar + contadores ----------
-  function countUp(el) {
-    var from = +el.getAttribute("data-from") || 0, to = +el.getAttribute("data-to") || 0;
-    if (reduceMotion) { el.textContent = to; return; }
-    var start = null, dur = 1400;
-    function tick(ts) {
-      if (!start) start = ts;
-      var k = Math.min(1, (ts - start) / dur), e = 1 - Math.pow(1 - k, 3);
-      el.textContent = Math.round(from + (to - from) * e);
-      if (k < 1) requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  }
+  // ---------- Revelar ao rolar ----------
   var reveals = $$(".reveal");
   if ("IntersectionObserver" in window && !reduceMotion) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
         if (!en.isIntersecting) return;
         en.target.classList.add("is-in");
-        $$(".count", en.target).forEach(countUp);
         io.unobserve(en.target);
       });
     }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
@@ -239,14 +224,6 @@
     document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !lb.hidden) closeLb(); });
   }
 
-  // ---------- Mapa sob demanda ----------
-  var mapBtn = $("#map-load");
-  if (mapBtn) mapBtn.addEventListener("click", function () {
-    var map = $("#map");
-    var q = encodeURIComponent("R. Vasco da Gama, 40, Sumaré, Alvorada - RS");
-    map.innerHTML = '<iframe title="Mapa da Zildo Tornearia" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=' + q + '&z=16&output=embed"></iframe>';
-  });
-
   // ---------- Formulário de orçamento ----------
   var form = $("#quote-form");
   if (form) {
@@ -326,21 +303,10 @@
   // ---------- Atendimento WhatsApp ----------
   var chatBtn = $("#chat-btn"), panel = $("#chat-panel");
   if (chatBtn && panel) {
-    var greeted = false;
     function openChat(open) {
       panel.hidden = !open;
       chatBtn.setAttribute("aria-expanded", String(open));
-      if (!open) return;
-      chatBtn.classList.add("seen");
-      if (!greeted) {
-        greeted = true;
-        setTimeout(function () {
-          $("#chat-typing").hidden = true;
-          $("#chat-hello").hidden = false;
-          setTimeout(function () { $("#chat-quick").hidden = false; }, reduceMotion ? 0 : 250);
-        }, reduceMotion ? 0 : 1100);
-      }
-      setTimeout(function () { $("#chat-text").focus(); }, 50);
+      if (open) setTimeout(function () { var q = $(".quick a", panel); if (q) q.focus(); }, 30);
     }
     chatBtn.addEventListener("click", function () { openChat(panel.hidden); });
     $("#chat-close").addEventListener("click", function () { openChat(false); chatBtn.focus(); });
