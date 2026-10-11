@@ -14,7 +14,11 @@ Site de uma página da Zildo Tornearia, oficina de família em Alvorada/RS desde
 │   ├── css/styles.css    # visual (cores no topo, em :root)
 │   ├── js/main.js        # horário, WhatsApp, formulário por e-mail, galeria, animações
 │   ├── js/lathe.js       # torno animado da abertura (canvas)
-│   └── img/favicon.svg   # ícone da aba
+│   └── img/
+│       ├── logo.svg          # logo vetorizado (recriado a partir do original)
+│       ├── logo-original.png # logo enviado pela cliente
+│       ├── favicon.svg       # ícone da aba
+│       └── trabalhos/        # fotos da galeria
 ├── robots.txt            # instruções para o Google
 ├── sitemap.xml           # mapa do site para o Google
 └── .github/workflows/    # verificação automática do HTML a cada push
@@ -30,7 +34,7 @@ Site de uma página da Zildo Tornearia, oficina de família em Alvorada/RS desde
 | E-mail que recebe os pedidos | atributo `data-email` na tag `<body>` |
 | Horário exibido na seção de contato | `index.html`, seção `#contato` |
 | Dados para o Google | blocos `application/ld+json` no `<head>` |
-| Cores | variáveis no topo de `assets/css/styles.css` |
+| Cores (laranja e grafite do logo) | variáveis no topo de `assets/css/styles.css` |
 
 ### Fotos dos trabalhos
 
@@ -61,7 +65,7 @@ Se o envio falhar, o site mostra um aviso e oferece o botão do WhatsApp com a m
 
 - [ ] Fotos reais dos trabalhos (as do site antigo estão no backup da Umbler; também dá para usar as do Instagram)
 - [ ] Ativar o formulário na FormSubmit (ver acima)
-- [ ] Logo oficial, se existir
+- [ ] Arquivo original do logo em alta resolução (o `logo.svg` é uma recriação; conferir com a cliente)
 - [ ] Horário de funcionamento real (hoje: seg a sex, 8h às 18h)
 - [ ] CEP correto (o site antigo mostrava "94820-4902", com um dígito a mais)
 - [ ] Imagem de compartilhamento (`og:image`, 1200×630)

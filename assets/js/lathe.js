@@ -40,14 +40,14 @@
   function readColors() {
     var cs = getComputedStyle(document.documentElement);
     function v(name, fb) { var x = cs.getPropertyValue(name).trim(); return x || fb; }
-    colors.machine = v("--lathe-machine", "#3F6B58");
-    colors.machineDark = v("--lathe-machine-dark", "#2A4A3C");
-    colors.bed = v("--lathe-bed", "#1B2E25");
+    colors.machine = v("--lathe-machine", "#4A4744");
+    colors.machineDark = v("--lathe-machine-dark", "#34312F");
+    colors.bed = v("--lathe-bed", "#181716");
     colors.steelLight = v("--lathe-steel-light", "#F1F3F2");
     colors.steel = v("--lathe-steel", "#B9C1BD");
     colors.steelDark = v("--lathe-steel-dark", "#5E6A65");
-    colors.chip = v("--signal", "#F2C230");
-    colors.line = v("--on-green-muted", "#B4C6BB");
+    colors.chip = v("--brand", "#D4560B");
+    colors.line = v("--light-muted", "#B9B2AB");
   }
 
   var dpr = 1, scale = 1, offX = 0, offY = 0;
