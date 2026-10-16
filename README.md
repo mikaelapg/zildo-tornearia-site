@@ -8,12 +8,17 @@ Site de uma página da Zildo Tornearia, oficina de família em Alvorada/RS desde
 
 ```
 .
-├── index.html            # página principal (todo o conteúdo fica aqui)
+├── index.html            # site institucional
+├── loja.html             # loja virtual: catálogo, carrinho, Pix e pedido no WhatsApp
 ├── 404.html              # página de erro
 ├── assets/
 │   ├── css/styles.css    # visual (cores no topo, em :root)
 │   ├── js/main.js        # horário, WhatsApp, formulário por e-mail, galeria, animações
 │   ├── js/lathe.js       # torno animado da abertura (canvas)
+│   ├── js/loja.js        # loja: filtros, carrinho, etapas da compra (configuração no topo)
+│   ├── js/pix.js         # monta o Pix "copia e cola" com valor (padrão BR Code)
+│   ├── js/qr.js          # gerador de QR Code próprio, sem biblioteca externa
+│   ├── data/produtos.js  # cópia local do catálogo (usada se a planilha falhar)
 │   └── img/
 │       ├── logo.svg          # logo vetorizado (recriado a partir do original)
 │       ├── logo-original.png # logo enviado pela cliente
@@ -43,6 +48,40 @@ Coloque as fotos em `assets/img/trabalhos/` com estes nomes (JPG, de preferênci
 `engrenagem.jpg`, `pino-de-porta.jpg`, `embuchamento.jpg`, `rebobinagem.jpg`, `retifica-freio.jpg`, `desengrossadeira.jpg`
 
 Enquanto a foto não existir, o site mostra uma ilustração animada do serviço. Quando a foto existe, ela abre ampliada ao clicar.
+
+## Loja virtual (`loja.html`)
+
+Catálogo com busca por código, filtros, carrinho e pagamento por **Pix com o valor exato**. O pedido sai pronto no WhatsApp da loja. Não tem servidor, banco de dados, mensalidade nem taxa por venda: o Pix cai direto na conta da empresa.
+
+### Antes de publicar
+
+No topo de `assets/js/loja.js`, objeto `LOJA`:
+
+| Campo | O que colocar |
+|---|---|
+| `whatsapp` | WhatsApp que recebe os pedidos (55 + DDD + número) |
+| `cnpj` | CNPJ que aparece no rodapé |
+| `pix.chave` | Chave Pix da empresa, de preferência o CNPJ |
+| `pix.recebedor` / `pix.cidade` | Nome e cidade como aparecem no banco |
+| `pix.exemplo` | Trocar para `false` (tira o aviso de demonstração) |
+| `planilhaCsv` | Link CSV da planilha de produtos (opcional, ver abaixo) |
+
+### Produtos pela planilha do Google
+
+1. Crie uma planilha com as colunas: `codigo, nome, categoria, marca, preco, estoque, medidas, desenho, feito_aqui, descricao`.
+2. Arquivo › Compartilhar › Publicar na Web › escolha a aba e o formato **CSV** › Publicar.
+3. Cole o link em `planilhaCsv`. A partir daí, preço e estoque mudam na planilha e o site atualiza sozinho.
+4. Só a conta da empresa pode editar a planilha, com verificação em duas etapas.
+
+Se a planilha não responder, a loja usa a cópia de `assets/data/produtos.js`. `desenho` aceita `rolamento`, `retentor`, `bucha`, `pino` ou `correia`. `feito_aqui` = `sim` mostra o selo "Feito na tornearia".
+
+### Segurança (regras para a loja)
+
+- **Só separar o pedido depois que o Pix aparecer no app do banco.** Comprovante por imagem não confirma pagamento.
+- **Conferir itens × valor recebido.** O pedido chega com o código (ex.: `Z261016K2H5`), que também vai no Pix como identificador.
+- **Contas com 2FA**: hospedagem, GitHub e Google. Quem invade uma delas poderia trocar a chave Pix.
+- O QR Code é gerado dentro do próprio site (`qr.js`), sem depender de script de terceiros. A página tem política de segurança (CSP) que bloqueia scripts de fora.
+- O site não guarda dados de clientes. Nome, telefone e endereço vão só na mensagem do WhatsApp.
 
 ## Formulário por e-mail
 
